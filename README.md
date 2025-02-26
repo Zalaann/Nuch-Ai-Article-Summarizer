@@ -72,4 +72,4 @@ The application uses OpenAI's APIs for two main functions:
 
 ## License
 
-MIT 
+MIT

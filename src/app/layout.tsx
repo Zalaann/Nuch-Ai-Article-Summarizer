@@ -2,6 +2,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import type { ReactNode } from 'react'
 import { ThemeProvider } from '@/context/ThemeContext'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={`${inter.className} transition-colors duration-200`}>
         <ThemeProvider>
           {children}
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>

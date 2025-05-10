@@ -78,6 +78,7 @@ export default function NewSummaryPage() {
   const [isRateLimited, setIsRateLimited] = useState(false)
   const [retryCountdown, setRetryCountdown] = useState(0)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const [responseTime, setResponseTime] = useState<number | null>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
 
   // Add click outside handler for mobile menu
@@ -127,6 +128,9 @@ export default function NewSummaryPage() {
     setSummary('')
     setError(null)
     setIsRateLimited(false)
+    setResponseTime(null)
+    
+    const startTime = Date.now()
     
     try {
       const response = await fetch('/api/summarize', {
@@ -166,6 +170,7 @@ export default function NewSummaryPage() {
       
       setSummary(data.summary);
       setSuccessMessage('Summary generated successfully!');
+      setResponseTime(Date.now() - startTime);
       
       // Clear success message after 3 seconds
       setTimeout(() => {
@@ -512,6 +517,11 @@ export default function NewSummaryPage() {
                     <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-md bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
                       <div className="whitespace-pre-wrap">{summary}</div>
                     </div>
+                    {responseTime && (
+                      <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                        Response time: {(responseTime / 1000).toFixed(2)} seconds
+                      </div>
+                    )}
                     <button
                       onClick={handleSaveSummary}
                       disabled={loading}

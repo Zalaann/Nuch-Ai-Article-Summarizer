@@ -247,7 +247,7 @@ export async function POST(request: Request) {
     console.log("Transcription successful! Length:", transcription.text.length);
 
     // Step 2: Summarize the transcription using OpenAI's GPT model
-    // Create a standard prompt for summarization
+    // Prompts for Summarization
     const prompt = `Please create a concise summary of the following transcribed audio titled "${title}". 
     Focus on the key points and main ideas.
     
